@@ -52,25 +52,21 @@ void loop() {
     }
     digitalWrite(greenpin, HIGH);
     delay(12000);
-    Serial.print("Light will turn yellow in 3 seconds\n");
     tone(buzzerpin, 500, 3000);
     delay(3000);
     digitalWrite(greenpin, LOW);
     digitalWrite(yellowpin, HIGH);
-    Serial.print("Light will turn red in 3 seconds\n");
     tone(buzzerpin, 500, 3000);
     delay(3000);
     digitalWrite(yellowpin, LOW);
     digitalWrite(redpin, HIGH);
     delay(12000);
-    Serial.print("Light will turn green in 3 seconds\n");
     tone(buzzerpin, 500, 3000);
     delay(3000);
     digitalWrite(redpin, LOW);
     buttonstate = HIGH;
   }
   else {
-    Serial.print("Button has not `been pressed and traffic lights will not start\n");
     if (currentmil - previousmil >= interval) {
       previousmil = currentmil;
       if (redstate == LOW) {
