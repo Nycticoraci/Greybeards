@@ -1,0 +1,85 @@
+/*
+   Davey Agrinsoni
+   Jacqueline Giggi
+   Tuan Nguyen
+   Microprocessor II
+   Lab 1
+
+   References
+   https://www.arduino.cc/en/Tutorial/Button
+   https://www.arduino.cc/en/Tutorial/BlinkWithoutDelay
+   https://www.arduino.cc/reference/en/language/structure/compound-operators/increment/
+   https://www.arduino.cc/en/Tutorial/ToneMelody
+   https://www.arduino.cc/reference/en/language/structure/sketch/loop/
+   https://www.arduino.cc/reference/en/
+*/
+
+const int greenpin = 23;
+const int yellowpin = 25;
+const int redpin = 27;
+const int buzzerpin = 29;
+const int buttonpin = 31;
+
+int buttonstate = LOW;
+int redstate = LOW;
+
+unsigned long previousmil = 0;
+const long interval = 500;
+
+int counter = 0;
+
+void setup() {
+  Serial.begin(9600);
+  pinMode(greenpin, OUTPUT);
+  pinMode(yellowpin, OUTPUT);
+  pinMode(redpin, OUTPUT);
+  pinMode(buzzerpin, OUTPUT);
+  pinMode(buttonpin, INPUT);
+}
+
+
+void loop() {
+  unsigned long currentmil = millis();
+  if (counter == 0) {
+    buttonstate = digitalRead(buttonpin);
+  }
+  buttonstate = digitalRead(buttonpin);
+  if (buttonstate == HIGH) {
+    digitalWrite(redpin, LOW);
+    if (counter == 0) {
+      Serial.print("Button has been pressed\n");
+      counter = ++counter;
+    }
+    digitalWrite(greenpin, HIGH);
+    delay(12000);
+    Serial.print("Light will turn yellow in 3 seconds\n");
+    tone(buzzerpin, 500, 3000);
+    delay(3000);
+    digitalWrite(greenpin, LOW);
+    digitalWrite(yellowpin, HIGH);
+    Serial.print("Light will turn red in 3 seconds\n");
+    tone(buzzerpin, 500, 3000);
+    delay(3000);
+    digitalWrite(yellowpin, LOW);
+    digitalWrite(redpin, HIGH);
+    delay(12000);
+    Serial.print("Light will turn green in 3 seconds\n");
+    tone(buzzerpin, 500, 3000);
+    delay(3000);
+    digitalWrite(redpin, LOW);
+    buttonstate = HIGH;
+  }
+  else {
+    Serial.print("Button has not `been pressed and traffic lights will not start\n");
+    if (currentmil - previousmil >= interval) {
+      previousmil = currentmil;
+      if (redstate == LOW) {
+        redstate = HIGH;
+      }
+      else {
+        redstate = LOW;
+      }
+      digitalWrite(redpin, redstate);
+    }
+  }
+}
