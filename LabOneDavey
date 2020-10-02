@@ -1,0 +1,78 @@
+//Davey Agrinsoni
+//9/27/2020
+//Microprocessors II Lab 1: Traffic Light Controller
+//Group: Greybeards
+
+#include <LedControl.h>
+
+#define GREEN 7
+#define RED 8
+#define YELLOW 12
+#define BUZZER 4
+#define BUTTON 2
+
+int state = 0;
+int count = 15;
+
+void setup() 
+{
+  pinMode (GREEN, OUTPUT);
+  pinMode (RED, OUTPUT);
+  pinMode (YELLOW, OUTPUT);
+  pinMode(BUZZER, OUTPUT);
+  pinMode(BUTTON, INPUT);
+  digitalWrite(BUTTON, LOW);
+  digitalWrite(GREEN, LOW);
+  digitalWrite(RED, HIGH);
+  digitalWrite(YELLOW, LOW);
+}
+
+void loop() 
+{
+
+  if (BUTTON == HIGH)
+  {
+    
+    for(count = 16; count >= 0; count --)
+    {
+      if (count == 4){
+        tone(BUZZER, 500, 3000);
+      }
+      if(count == 1){
+        count = 16; 
+        state ++;
+        }
+      else  {
+        delay (1000);
+        }
+      if (state == 0)
+      {
+        digitalWrite(GREEN, LOW);
+        digitalWrite(RED, HIGH);
+        digitalWrite(YELLOW, LOW);
+        }
+      if (state == 1){
+        digitalWrite(GREEN, HIGH);
+        digitalWrite(RED, LOW);
+        digitalWrite(YELLOW, LOW);
+        }
+      if (state == 2){
+        digitalWrite(GREEN, LOW);
+        digitalWrite(RED, LOW);
+        digitalWrite(YELLOW, HIGH);
+        tone(BUZZER, 500, 1000);
+      }
+      if (state ==2 &&  count == 13){
+        state = 0;
+        count = 16;
+      }
+    }
+  }
+      else  {
+    digitalWrite(RED, LOW);
+    delay(1500);
+    digitalWrite(RED,HIGH);
+    delay(1500);
+
+   } 
+}
