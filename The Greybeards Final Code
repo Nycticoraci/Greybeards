@@ -5,12 +5,12 @@
    Microprocessor II
    Lab 1
 */
-#include <LedControl.h>
-#define GREEN = 23;
-#define YELLOW = 25;
-#define RED = 27;
-#define BUZZER = 29;
-#define BUTTON = 31;
+
+const int GREEN = 23;
+const int YELLOW = 25;
+const int RED = 27;
+const int BUZZER = 29;
+const int BUTTON = 31;
 
 int buttonstate = HIGH;
 int redstate = LOW;
@@ -41,16 +41,16 @@ void loop() {
     }
     digitalWrite(RED, HIGH);
     delay(12000);
-    tone(buzzerpin, 500, 3000);
+    tone(BUZZER, 500, 3000);
     delay(3000);
     digitalWrite(RED, LOW);
     digitalWrite(GREEN, HIGH);
     delay(12000);
-    tone(buzzerpin, 500, 3000);
+    tone(BUZZER, 500, 3000);
     delay(3000);
     digitalWrite(GREEN, LOW);
     digitalWrite(YELLOW, HIGH);
-    tone(buzzerpin, 500, 3000);
+    tone(BUZZER, 500, 3000);
     delay(3000);
     digitalWrite(YELLOW, LOW);
     buttonstate = LOW;
