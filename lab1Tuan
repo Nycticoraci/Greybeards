@@ -36,7 +36,6 @@ void setup() {
   pinMode(buttonpin, INPUT_PULLUP);
 }
 
-
 void loop() {
   unsigned long currentmil = millis();
   if (counter == 0) {
@@ -48,6 +47,12 @@ void loop() {
       Serial.print("Button has been pressed\n");
       counter = ++counter;
     }
+    digitalWrite(redpin, HIGH);
+    delay(12000);
+    Serial.print("Light will turn green in 3 seconds\n");
+    tone(buzzerpin, 500, 3000);
+    delay(3000);
+    digitalWrite(redpin, LOW);
     digitalWrite(greenpin, HIGH);
     delay(12000);
     Serial.print("Light will turn yellow in 3 seconds\n");
@@ -59,12 +64,6 @@ void loop() {
     tone(buzzerpin, 500, 3000);
     delay(3000);
     digitalWrite(yellowpin, LOW);
-    digitalWrite(redpin, HIGH);
-    delay(12000);
-    Serial.print("Light will turn green in 3 seconds\n");
-    tone(buzzerpin, 500, 3000);
-    delay(3000);
-    digitalWrite(redpin, LOW);
     buttonstate = LOW;
   }
   else {
