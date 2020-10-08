@@ -10,6 +10,7 @@
    https://www.arduino.cc/en/Tutorial/ToneMelody
    https://www.arduino.cc/reference/en/language/structure/sketch/loop/
    https://www.arduino.cc/reference/en/
+   https://www.arduino.cc/reference/en/language/variables/constants/constants/
 */
 
 const int greenpin = 23;
@@ -18,7 +19,7 @@ const int redpin = 27;
 const int buzzerpin = 29;
 const int buttonpin = 31;
 
-int buttonstate = LOW;
+int buttonstate = HIGH;
 int redstate = LOW;
 
 unsigned long previousmil = 0;
@@ -32,7 +33,7 @@ void setup() {
   pinMode(yellowpin, OUTPUT);
   pinMode(redpin, OUTPUT);
   pinMode(buzzerpin, OUTPUT);
-  pinMode(buttonpin, INPUT);
+  pinMode(buttonpin, INPUT_PULLUP);
 }
 
 
@@ -41,8 +42,7 @@ void loop() {
   if (counter == 0) {
     buttonstate = digitalRead(buttonpin);
   }
-  buttonstate = digitalRead(buttonpin);
-  if (buttonstate == HIGH) {
+  if (buttonstate == LOW) {
     digitalWrite(redpin, LOW);
     if (counter == 0) {
       Serial.print("Button has been pressed\n");
@@ -65,10 +65,10 @@ void loop() {
     tone(buzzerpin, 500, 3000);
     delay(3000);
     digitalWrite(redpin, LOW);
-    buttonstate = HIGH;
+    buttonstate = LOW;
   }
   else {
-    Serial.print("Button has not been pressed and traffic lights will not start\n");
+    Serial.print("Button has not `been pressed and traffic lights will not start\n");
     if (currentmil - previousmil >= interval) {
       previousmil = currentmil;
       if (redstate == LOW) {
