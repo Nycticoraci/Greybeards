@@ -4,22 +4,13 @@
    Tuan Nguyen
    Microprocessor II
    Lab 1
-
-   References
-   https://www.arduino.cc/en/Tutorial/Button
-   https://www.arduino.cc/en/Tutorial/BlinkWithoutDelay
-   https://www.arduino.cc/reference/en/language/structure/compound-operators/increment/
-   https://www.arduino.cc/en/Tutorial/ToneMelody
-   https://www.arduino.cc/reference/en/language/structure/sketch/loop/
-   https://www.arduino.cc/reference/en/
-   https://www.arduino.cc/reference/en/language/variables/constants/constants/
 */
 
-const int greenpin = 23;
-const int yellowpin = 25;
-const int redpin = 27;
-const int buzzerpin = 29;
-const int buttonpin = 31;
+#define GREEN = 23;
+#define YELLOW = 25;
+#define RED = 27;
+#define BUZZER = 29;
+#define BUTTON = 31;
 
 int buttonstate = HIGH;
 int redstate = LOW;
@@ -31,46 +22,40 @@ int counter = 0;
 
 void setup() {
   Serial.begin(9600);
-  pinMode(greenpin, OUTPUT);
-  pinMode(yellowpin, OUTPUT);
-  pinMode(redpin, OUTPUT);
-  pinMode(buzzerpin, OUTPUT);
-  pinMode(buttonpin, INPUT_PULLUP);
+  pinMode(GREEN, OUTPUT);
+  pinMode(YELLOW, OUTPUT);
+  pinMode(RED, OUTPUT);
+  pinMode(BUZZER, OUTPUT);
+  pinMode(BUTTON, INPUT_PULLUP);
 }
-
 
 void loop() {
   unsigned long currentmil = millis();
   if (counter == 0) {
-    buttonstate = digitalRead(buttonpin);
+    buttonstate = digitalRead(BUTTON);
   }
   if (buttonstate == LOW) {
-    digitalWrite(redpin, LOW);
+    digitalWrite(RED, LOW);
     if (counter == 0) {
-      Serial.print("Button has been pressed\n");
       counter = ++counter;
     }
-    digitalWrite(greenpin, HIGH);
+    digitalWrite(RED, HIGH);
     delay(12000);
-    Serial.print("Light will turn yellow in 3 seconds\n");
     tone(buzzerpin, 500, 3000);
     delay(3000);
-    digitalWrite(greenpin, LOW);
-    digitalWrite(yellowpin, HIGH);
-    Serial.print("Light will turn red in 3 seconds\n");
-    tone(buzzerpin, 500, 3000);
-    delay(3000);
-    digitalWrite(yellowpin, LOW);
-    digitalWrite(redpin, HIGH);
+    digitalWrite(RED, LOW);
+    digitalWrite(GREEN, HIGH);
     delay(12000);
-    Serial.print("Light will turn green in 3 seconds\n");
     tone(buzzerpin, 500, 3000);
     delay(3000);
-    digitalWrite(redpin, LOW);
+    digitalWrite(GREEN, LOW);
+    digitalWrite(YELLOW, HIGH);
+    tone(buzzerpin, 500, 3000);
+    delay(3000);
+    digitalWrite(YELLOW, LOW);
     buttonstate = LOW;
   }
   else {
-    Serial.print("Button has not `been pressed and traffic lights will not start\n");
     if (currentmil - previousmil >= interval) {
       previousmil = currentmil;
       if (redstate == LOW) {
@@ -79,7 +64,7 @@ void loop() {
       else {
         redstate = LOW;
       }
-      digitalWrite(redpin, redstate);
+      digitalWrite(RED, redstate);
     }
   }
 }
