@@ -1,16 +1,15 @@
 # Simple Snake Game in Python 3 for Beginners
 # By @TokyoEdTech
-# modified by Yan Luo
-#
-# you need to install a few python3 packages
-
+# Modified by Yan Luo
+# Further modified by Davey Agrinsoni, Jacqueline Giggi, and Tuan Nguyen
+# Python portion of Microprocessor II Lab 2 code
 
 import turtle
 import time
 import random
 import serial
 
-ser = serial.Serial('COM4', 9600)
+ser = serial.Serial('COM4', 9600) #Using pyserial to make connection to the arduino
 
 delay = 0.1
 
@@ -144,7 +143,7 @@ while True:
         # Increase the score
         score += 10
 
-        ser.write("b".encode())
+        ser.write("b".encode()) #writes to the serial monitor of the arduino to activate buzzer
         
         if score > high_score:
             high_score = score
@@ -165,12 +164,12 @@ while True:
         segments[0].goto(x,y)
 
     #move()
-    Data = ser.readline().decode('ascii')
+    Data = ser.readline().decode('ascii') # reads serial monitor of the arduino to determine direction to move
     if Data[0] == 'n':
         move()
-    elif Data[0] == 'r':
-        head.direction = "right"
-        move()
+    elif Data[0] == 'r': # if data is receive to be r then python tells the snake
+        head.direction = "right" # to move to the right by setting head.direction to right
+        move() #after setting the direction python then tells the snake to move with move()
     elif Data[0] == 'u':
         head.direction = "up"
         move()
