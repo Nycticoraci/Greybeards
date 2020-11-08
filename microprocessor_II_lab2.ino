@@ -29,7 +29,7 @@ void loop() {
   Wire.beginTransmission(MPU_ADDR);
   Wire.write(0x3B);  // starting with register 0x3B (ACCEL_XOUT_H)
   Wire.endTransmission(false);
-  Wire.requestFrom(MPU_ADDR,6,true);  // request a total of 6 registers for the accleration portion
+  Wire.requestFrom(MPU_ADDR,6,true);  // request a total of 6 registers for the acceleration portion
   
   delay(250);
 
