@@ -47,7 +47,7 @@ void loop() {
   AcY=Wire.read()<<8|Wire.read();  // 0x3D (ACCEL_YOUT_H) & 0x3E (ACCEL_YOUT_L)
   AcZ=Wire.read()<<8|Wire.read();  // 0x3F (ACCEL_ZOUT_H) & 0x40 (ACCEL_ZOUT_L)
   
-  if (((900 < analogRead(X_pin) && 450 < analogRead(Y_pin)< 500)) || (AcX < -7000)) 
+  if (((850 < analogRead(X_pin) && 400 < analogRead(Y_pin) < 500)) || (AcX < -7000)) 
   Serial.println("r");
   else if (((450 < analogRead(X_pin) < 500 && analogRead(Y_pin)< 200)) || (AcY < -7000))
   Serial.println("u");
